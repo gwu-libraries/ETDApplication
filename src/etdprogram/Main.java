@@ -96,6 +96,12 @@ public class Main {
             month="10";
         else if(month.equals("12"))
             month="11";
+        int intyear = Integer.parseInt(year);
+        if(month.equals("12"))
+        {
+            intyear=intyear-1;
+        year = Integer.toString(intyear);
+        }
 String monthyear=month+year;
         try
         {
@@ -399,7 +405,7 @@ String monthyear=month+year;
 			fromAddress = new InternetAddress(from);
                         cc= new InternetAddress("RDG@library.gwu.edu");
                         cc1=new InternetAddress(from);
-			toAddress = new InternetAddress("picken@wrlc.org");
+			toAddress = new InternetAddress("RDG@library.gwu.edu");
 		} catch (AddressException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -1285,6 +1291,7 @@ static void getFiles(String monthyear)
             Iterator i=v.iterator();
             String filename="";
             Vector store=new Vector();
+                    
             while(i.hasNext())
             {
 
@@ -1302,7 +1309,7 @@ static void getFiles(String monthyear)
                 String month=mtime.substring(1,index+1);
                 String m=changeMonth(month);
                 String date=m+"-"+year;
-               // System.out.println(monthyear+" "+date);
+                //System.out.println(monthyear+" "+date);
                 if(monthyear.equals(date)&&!filename.equals(".")&&!filename.equals(".."))
                 {
                     channel.get(filename,cWorkDir.getAbsolutePath()+"/"+filename);
@@ -1552,7 +1559,7 @@ public static void checkTags()
 
                 }
                 //System.out.println("code:"+code+" " +line);
-                if(line.contains("<>"))
+                if(line.contains("<"))
                 {
                     Code c = new Code (code,true,title,author);
                     tags.add(c);
