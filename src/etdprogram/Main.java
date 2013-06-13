@@ -1583,7 +1583,9 @@ public static void checkTags()
         line=br.readLine();
         text = text + line;
     }
+    br.close();
     f.delete();
+    
     PrintWriter p = new PrintWriter(f);
     p.write(text);
     p.close();
