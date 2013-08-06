@@ -398,9 +398,9 @@ String monthyear=month+year;
 		InternetAddress toAddress = null;
 		try {
 			fromAddress = new InternetAddress(from);
-                        cc= new InternetAddress("RDG@library.gwu.edu");
+                        cc= new InternetAddress("rdg@gwu.edu");
                         cc1=new InternetAddress(from);
-			toAddress = new InternetAddress("RDG@library.gwu.edu");
+			toAddress = new InternetAddress("rdg@gwu.edu");
 		} catch (AddressException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
