@@ -1,8 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package etdprogram;
 import java.io.*;
 import com.jcraft.jsch.*;
@@ -13,8 +8,6 @@ import java.text.DateFormat;
 import javax.mail.*;
 import javax.mail.internet.*;
 import java.util.*;
-import org.jsoup.Jsoup;
-import org.jsoup.safety.Whitelist;
 
 
 
@@ -405,9 +398,9 @@ String monthyear=month+year;
 		InternetAddress toAddress = null;
 		try {
 			fromAddress = new InternetAddress(from);
-                        cc= new InternetAddress("rdg@gwu.edu");
+                        cc= new InternetAddress("RDG@library.gwu.edu");
                         cc1=new InternetAddress(from);
-			toAddress = new InternetAddress("rdg@gwu.edu");
+			toAddress = new InternetAddress("RDG@library.gwu.edu");
 		} catch (AddressException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -1532,14 +1525,10 @@ public static boolean deleteDir(File dir) {
 public static void checkTags()
 {
     File f = new File(m_file);
-    String text= "";
     try
     {
     BufferedReader br=new BufferedReader(new FileReader(f));
-    //read the first line and add it to the string text
     String line=br.readLine();
-    text = text + line;
-    
     String code="",author="",title="";
     while(line!=null)
     {
@@ -1548,7 +1537,6 @@ public static void checkTags()
                 int ind=line.indexOf("_");
                 code=line.substring(ind+1);
                 line=br.readLine();
-                text = text + line;
                 while(!line.startsWith("=520"))
                 {
                     if(line.startsWith("=100"))
@@ -1563,13 +1551,11 @@ public static void checkTags()
                         title=line.substring(index+1,index2);
                     }
                     line=br.readLine();
-                    text = text + line;
 
                 }
                 //System.out.println("code:"+code+" " +line);
                 if(line.contains("<"))
                 {
-                    text = Jsoup.clean(text, Whitelist.none());
                     Code c = new Code (code,true,title,author);
                     tags.add(c);
                 }
@@ -1578,17 +1564,9 @@ public static void checkTags()
                     Code c = new Code(code,false,title,author);
                     tags.add(c);
                 }
-                
             }
         line=br.readLine();
-        text = text + line;
     }
-    br.close();
-    f.delete();
-    
-    PrintWriter p = new PrintWriter(f);
-    p.write(text);
-    p.close();
     }
     catch(Exception e)
     {
