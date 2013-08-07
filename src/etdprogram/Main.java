@@ -1577,6 +1577,7 @@ public static void checkTags()
 }
 public static void writeWebLog()
 {
+    System.out.println("Writing Web Log");
     try
     {
             PrintWriter pr = new PrintWriter(new FileWriter(web_log));
@@ -1588,11 +1589,15 @@ public static void writeWebLog()
             Code c = (Code)i.next();
             //System.out.println(c.getAuthor()+ " "+c.getCode()+ " "+c.getTitle());
             if(c.getTag())
+            {
                 pr.println("Record Number:"+count+ "# Author: "+ c.getAuthor()+ "# Title: "+c.getTitle()+ "# This record <b>has HTML tags</b>" );
+                System.out.println("Record Number:"+count+ "# Author: "+ c.getAuthor()+ "# Title: "+c.getTitle()+ "# This record <b>has HTML tags</b>" );
+            }
             else
+            {
                 pr.println("Record Number:"+count+ "# Author: "+ c.getAuthor()+ "# Title: "+c.getTitle()+"# This record has <b>No HTML tags</b>" );
-
-                
+                System.out.println("Record Number:"+count+ "# Author: "+ c.getAuthor()+ "# Title: "+c.getTitle()+"# This record has <b>No HTML tags</b>" );
+            }
         }
             pr.close();
     }
