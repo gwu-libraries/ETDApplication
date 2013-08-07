@@ -1313,10 +1313,11 @@ static void getFiles(String monthyear)
                     store.add(filename);
                 }
             }
-
+            System.out.println("Starting to run runGW.pl");
             Process p = Runtime.getRuntime().exec(cWorkDir.getAbsolutePath()+"/runGW.pl");
             p.waitFor();
             p.destroy();
+            System.out.println("runGW.pl finished execution");
              i=store.iterator();
              File backup=null;
              String archive = "/home/jshieh/RDG/ETD-UMI/GW-ETD/"+year+month;
