@@ -1305,7 +1305,7 @@ static void getFiles(String monthyear)
                 String m=changeMonth(month);
                 String date=m+"-"+year;
                 //System.out.println(monthyear+" "+date);
-                if(monthyear.equals(date)&&!filename.equals(".")&&!filename.equals(".."))
+                if(monthyear.equals(date)&&!filename.equals(".")&&!filename.equals("..") &&filename.endsWith(".zip"))
                 {
                     channel.get(filename,cWorkDir.getAbsolutePath()+"/"+filename);
                     Process p=Runtime.getRuntime().exec("chmod 777 "+cWorkDir.getAbsolutePath()+"/"+filename);
