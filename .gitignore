@@ -2,4 +2,6 @@ dist/**
 build/**
 nbproject/private/**
 .idea/**
-
+target/**
+*.iml
+etd.props

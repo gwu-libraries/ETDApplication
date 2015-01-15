@@ -1,0 +1,21 @@
+#base: <Location of etd base directory. If omitted working directory is used.>
+#Executable for marcdump. Add a path if necessary.
+marcdump.exe=yaz-marcdump
+#Root location for html docs. Files are placed in www root/rdg.
+www.root=/var/www
+mail.smtp.host=127.0.0.1
+mail.smtp.port=25
+mail.from=emerson@gwu.edu
+mail.to=rdg@gwu.edu
+#Base url from which the etds will be served. Link to etd is sent in the email.
+base.url=http://gwetd-test.wrlc.org
+dest.sftp.host=192.245.136.151
+dest.sftp.username=jshieh
+#DESTINATION PASSWORD REQUIRED
+dest.sftp.password=<PASSWORD>
+dest.sftp.port=9999
+src.sftp.host=128.164.212.151
+src.sftp.username=jshieh
+#SOURCE PASSWORD REQUIRED
+src.sftp.password=<PASSWORD>
+src.sftp.port=9999
