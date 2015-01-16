@@ -540,8 +540,13 @@ public class Main {
 
             {
                 String dir = "etd_" + code;
-                SftpATTRS attrs = channel.stat("etd_" + code);
-                if (attrs.isDir()) {
+                SftpATTRS attrs = null;
+                try {
+                    attrs = channel.stat(dir);
+                } catch (SftpException ex) {
+                    //Exception if does not exist
+                }
+                if (attrs != null && attrs.isDir()) {
                     System.out.println(dir + " already exists");
                 } else {
                     channel.mkdir(dir);
@@ -568,8 +573,13 @@ public class Main {
             }
         } else if (Dissertation_folder != null && embargo == false) {
             String dir = "etd_" + code;
-            SftpATTRS attrs = channel.stat("etd_" + code);
-            if (attrs.isDir()) {
+            SftpATTRS attrs = null;
+            try {
+                attrs = channel.stat(dir);
+            } catch (SftpException ex) {
+                //Exception if does not exist
+            }
+            if (attrs != null && attrs.isDir()) {
                 System.out.println(dir + " already exists");
             } else {
                 channel.mkdir(dir);
