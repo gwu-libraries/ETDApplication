@@ -30,7 +30,7 @@ my @zipFiles = `ls *.zip`;
 
 foreach my $file (@zipFiles) {
     print "Unzipping $file";
-    system ("unzip -qq $file");
+    system ("unzip -qq -o $file");
 }
 
 ########## INSERT related segments from runAll.pl
