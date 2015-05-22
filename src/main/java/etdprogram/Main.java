@@ -871,7 +871,7 @@ public class Main {
 
     static String changeCase(String title) {
         System.out.println("TITLE: " + title);
-        title = title.replaceAll("  ", " ");
+        title = title.replaceAll(" {2,}", " ");
         final StringBuilder result = new StringBuilder(title.length());
         String[] words = title.split(" ");
         for (int i = 0, l = words.length; i < l; ++i) {
