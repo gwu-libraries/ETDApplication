@@ -919,7 +919,7 @@ public class Main {
                 Integer.parseInt(props.getProperty("src.sftp.port")));
 
         System.out.println("connected");
-        channel.cd("/media/storage/etd_uploads");
+        channel.cd(props.getProperty("src.sftp.path"));
         System.out.println("connected to the server");
         Vector v = channel.ls(".");
         Iterator i = v.iterator();
