@@ -14,7 +14,7 @@ dest.sftp.username=jshieh
 #DESTINATION PASSWORD REQUIRED
 dest.sftp.password=<PASSWORD>
 dest.sftp.port=9999
-src.sftp.host=128.164.212.151
+src.sftp.host=gwul-backup1.ead.gwu.edu
 src.sftp.username=jshieh
 #SOURCE PASSWORD REQUIRED
 src.sftp.password=<PASSWORD>
