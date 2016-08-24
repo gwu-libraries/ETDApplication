@@ -370,8 +370,8 @@ public class Main {
             int absmonthdiff = (yeardifference * 12) + monthdifference;
             if ((length.equals("3") && absmonthdiff >= 24) || (length.equals("2") && absmonthdiff >= 12) || (length.equals("1") && absmonthdiff >= 6)) {
                 System.out.println("Unembargoing " + code);
-                channel.rm("/var/web/etd_" + code + "/" + code + ".pdf");
-                channel.rename("/var/web/etd_" + code + "/embargo_" + code + ".pdf", "/var/web/etd_" + code + "/" + code + ".pdf");
+                channel.rm(props.getProperty("dest.sftp.path") + "/etd_" + code + "/" + code + ".pdf");
+                channel.rename(props.getProperty("dest.sftp.path") +"/etd_" + code + "/embargo_" + code + ".pdf", props.getProperty("dest.sftp.path") + "/etd_" + code + "/" + code + ".pdf");
                 copyfile(GW_ETD.getAbsolutePath() + "/embargo_warning/" + child[i], GW_ETD.getAbsolutePath() + "/embargo_warning/unembargo/" + child[i]);
                 File f = new File(GW_ETD.getAbsolutePath() + "/embargo_warning/" + child[i]);
                 f.delete();
@@ -390,7 +390,7 @@ public class Main {
         Integer destPort = Integer.parseInt(props.getProperty("dest.sftp.port"));
         ChannelSftp channel = getChannel(destUsername, destPassword, destHost, destPort);
 
-        channel.cd("/var/web");
+        channel.cd(props.getProperty("dest.sftp.path"));
         int months = 0;
         for (int i = 0; i < child.length; i++) {
             File warningFile = new File(embargo_folder, child[i]);
@@ -429,8 +429,8 @@ public class Main {
 
             if ((length.equals("3") && absmonthdiff >= 24) || (length.equals("2") && absmonthdiff >= 12) || (length.equals("2") && absmonthdiff >= 12)) {
                 System.out.println("Unembargoing " + code);
-                System.out.println(executeCommand(destUsername, destPassword, destHost, destPort, "rm /var/web/" + code + ".pdf"));
-                System.out.println(executeCommand(destUsername, destPassword, destHost, destPort, "mv /var/web/" + code + "_embargo.pdf /var/web/" + code + ".pdf"));
+                System.out.println(executeCommand(destUsername, destPassword, destHost, destPort, "rm " + props.getProperty("dest.sftp.path") + "/" + code + ".pdf"));
+                        System.out.println(executeCommand(destUsername, destPassword, destHost, destPort, "mv " + props.getProperty("dest.sftp.path") + "/" + code + "_embargo.pdf " + props.getProperty("dest.sftp.path") + "/" + code + ".pdf"));
                 copyfile(warningFile.getAbsolutePath(), new File(embargo_folder, "unembargo/" + child[i]).getAbsolutePath());
                 System.out.println(" deleting file " + child[i]);
                 warningFile.delete();
@@ -535,7 +535,7 @@ public class Main {
         System.out.println(code + " embargoed status is " + embargo);
         String mime = "", val = "";
         long size = 0;
-        channel.cd("/var/web");
+        channel.cd(props.getProperty("dest.sftp.path"));
         if (Dissertation_folder != null && embargo == true) {
 
             {
@@ -551,7 +551,7 @@ public class Main {
                 } else {
                     channel.mkdir(dir);
                 }
-                channel.cd("/var/web/etd_" + code);
+                channel.cd(props.getProperty("dest.sftp.path") + "/etd_" + code);
                 File parentDir = new File(Dissertation_parent.getAbsolutePath() + "/" + Dissertation_folder);
                 System.out.println("Create Html pwd : " + channel.pwd());
                 String[] child = parentDir.list();
@@ -584,7 +584,7 @@ public class Main {
             } else {
                 channel.mkdir(dir);
             }
-            channel.cd("/var/web/etd_" + code);
+            channel.cd(props.getProperty("dest.sftp.path") + "/etd_" + code);
             System.out.println("Create Html pwd : " + channel.pwd());
             File parentDir = new File(Dissertation_parent.getAbsolutePath() + "/" + Dissertation_folder);
 
@@ -617,7 +617,7 @@ public class Main {
                 } else {
                     channel.mkdir(dir);
                 }
-                channel.cd("/var/web/etd_" + code);
+                channel.cd(props.getProperty("dest.sftp.path") + "/etd_" + code);
                 System.out.println("Create Html pwd : " + channel.pwd());
                 val = Dissertation_parent.getAbsolutePath() + "/destinationPDF/" + code + ".pdf";
 
@@ -646,7 +646,7 @@ public class Main {
                 } else {
                     channel.mkdir(dir);
                 }
-                channel.cd("/var/web/etd_" + code);
+                channel.cd(props.getProperty("dest.sftp.path") + "/etd_" + code);
                 System.out.println("Create Html pwd : " + channel.pwd());
                 val = Dissertation_parent.getAbsolutePath() + "/destinationPDF/" + code + ".pdf";
                 File file = new File(val);
@@ -683,7 +683,7 @@ public class Main {
             String[] child = parentDir.list();
             out.println("<tr VALIGN=BOTTOM>");
             out.println("<td>");
-            out.println("<h2><a href=http://etd.gelman.gwu.edu/etd_" + code + "/" + code + ".pdf>");
+            out.println("<h2><a href=etd_" + code + "/" + code + ".pdf>");
             out.println("Main Document");
             out.println("</a></h2>");
             out.println("</td>");
@@ -696,7 +696,7 @@ public class Main {
                     System.out.println(child[i]);
                     out.println("<tr VALIGN=BOTTOM>");
                     out.println("<td>");
-                    out.println("<h2><a href=http://etd.gelman.gwu.edu/etd_" + code + "/" + child[i] + ">");
+                    out.println("<h2><a href=etd_" + code + "/" + child[i] + ">");
                     out.println("Supporting Document");
                     out.println("</a></h2>");
                     out.println("</td>");
@@ -714,7 +714,7 @@ public class Main {
 
             out.println("</table></td></tr></table></tr></tr></table></body></html>");
             out.close();
-            channel.cd("/var/web");
+            channel.cd(props.getProperty("dest.sftp.path"));
             channel.put(new FileInputStream(html_f), html_f.getName());
             disconnect(channel);
             html_f.delete();
@@ -742,7 +742,7 @@ public class Main {
             String[] child = parentDir.list();
             out.println("<tr VALIGN=BOTTOM>");
             out.println("<td>");
-            out.println("<h2><a href=http://etd.gelman.gwu.edu/etd_" + code + "/" + code + ".pdf>");
+            out.println("<h2><a href=etd_" + code + "/" + code + ".pdf>");
             out.println("Main Document");
             out.println("</a></h2>");
             out.println("</td>");
@@ -753,7 +753,7 @@ public class Main {
 
             out.println("</table></td></tr></table></tr></tr></table></body></html>");
             out.close();
-            channel.cd("/var/web");
+            channel.cd(props.getProperty("dest.sftp.path"));
             channel.put(new FileInputStream(html_f), html_f.getName());
             disconnect(channel);
             html_f.delete();
@@ -777,7 +777,7 @@ public class Main {
 
             out.println("<tr VALIGN=BOTTOM>");
             out.println("<td>");
-            out.println("<h2><a href=http://etd.gelman.gwu.edu/etd_" + code + "/" + code + ".pdf>");
+            out.println("<h2><a href=etd_" + code + "/" + code + ".pdf>");
             out.println("Main Document");
             out.println("</a></h2>");
             out.println("</td>");
@@ -787,7 +787,7 @@ public class Main {
             out.println("</tr>");
             out.println("</table></td></tr></table></tr></tr></table></body></html>");
             out.close();
-            channel.cd("/var/web");
+            channel.cd(props.getProperty("dest.sftp.path"));
             channel.put(new FileInputStream(html_f), html_f.getName());
             disconnect(channel);
             html_f.delete();
